@@ -9,7 +9,7 @@ Read this file and inspect current branch/commits before working. Update this fi
 - Pages: https://alfonsogordon.github.io/bf-osd-text-editor/
 - v0.2 (commit 3e91dfd1b2228cf606bb5c67f124604e6ab4b86b): browser-local Intel HEX parsing/checksums, SHA-256, candidate scanning, duplicate addresses, editable plain-text preview, JSON report. Format strings locked; firmware export disabled. Deployment/browser testing not independently verified here.
 - Original research build: Betaflight 4.5.5 STM32F722 FLYWOOF722PROV2 b5a42002. Original firmware not published in this repo. Second target and hardware test pending.
-- Current editor limits are original string lengths, not established OSD limits.
+- Current v0.3 preview permits 30 ASCII characters; original lengths remain conservative in-place budgets, not verified patch limits.
 
 ## Source-confirmed findings (4.5.5)
 - [osd.h](https://github.com/betaflight/betaflight/blob/4.5.5/src/main/osd/osd.h): OSD_ELEMENT_BUFFER_LENGTH = 32.
@@ -41,4 +41,7 @@ None confirmed yet.
 - [osd_elements.c](https://github.com/betaflight/betaflight/blob/4.5.5/src/main/osd/osd_elements.c#L2104): activeElement.buff = elementBuff confirms the 32-byte destination for ordinary foreground elements.
 - [displayport_msp.c](https://github.com/betaflight/betaflight/blob/4.5.5/src/main/io/displayport_msp.c#L109): MSP_OSD_MAX_STRING_LENGTH = 30; writeString clamps strlen to 30 before transmission.
 - [max7456.c](https://github.com/betaflight/betaflight/blob/4.5.5/src/main/drivers/max7456.c#L502): analog writes stop at CHARS_PER_LINE, so visible length depends on starting column. Digital receiver layout also needs verification.
-- 30 ASCII characters is a theoretical MSP transmission ceiling for ordinary direct-rendered messages, not verified binary patch capacity. Keep current export disabled and original-length preview limits until further work; no hardware tests performed.
+- 30 ASCII characters is a theoretical MSP transmission ceiling for ordinary direct-rendered messages, not verified binary patch capacity. Keep export disabled; v0.3 now permits extended preview only; no hardware tests performed.
+
+## v0.3 editor update
+- Commit 73653b223342a93eb3faf0dce1e20411af0b5ea3: 30-character plain-text preview, original byte budget, live extended-storage indicator, JSON metadata, percent directives excluded from new plain text. Dynamic formats remain locked. Export remains disabled. No browser or hardware test confirmed.
