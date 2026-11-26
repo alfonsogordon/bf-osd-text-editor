@@ -54,3 +54,6 @@ None confirmed yet.
 
 ## First exported HEX comparison
 Both uploaded original and experimental files independently parsed: 397979 bytes, 24886 records each, identical addresses, all checksums valid, one changed record and seven changed bytes. Export at 0x0805B760 changed NOT_DISARMED to NOT_FPSteVe! (suffix false positive); do not flash this export. Standalone DISARMED at 0x08062C86 has preceding and trailing NUL. v0.4.3 requires preceding NUL to conservatively reject suffixes; may miss valid strings. Actual OSD reference and hardware test remain unverified.
+
+## Second export independent binary comparison
+Original b5a42002(1).hex versus EXPERIMENTAL (1).hex: both 397979 data bytes, 24886 records, all record checksums valid, identical address sets, exactly one changed record and seven changed bytes. At 0x08062C86 standalone DISARMED becomes FPSteve! (8 bytes), surrounding bytes and NUL preserved. NOT_DISARMED at 0x0805B760 unchanged. Binary comparison passed; actual OSD behavior and hardware safety still unverified. Bench test only on spare FC with props removed and recovery backup.
