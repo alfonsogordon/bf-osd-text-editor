@@ -71,3 +71,5 @@ FPSteVe approved preparing the UI and validation while awaiting the first spare-
 
 ## v0.4.4 quick validation UI update
 Commit 9a2a5bc12db7e02e868c9cf3506b5997466284dc adds slow red pulsing invalid input borders, explanatory red counts, aria-invalid and reduced-motion support. Invalid input is retained rather than silently stripped; export stays gated by existing eight-byte single DISARMED restriction plus explicit validation. Other edited candidates remain preview-only and marked red as export blockers; dynamic fields remain locked. Failed verification shows red status. Browser/deployment and hardware testing not confirmed. No relocation or new export eligibility added.
+
+- v0.4.5: stronger red invalid-field glow and background pulse (0.8s cycle), bold error text; reduced-motion fallback retained. Validation/export logic unchanged. Browser testing pending.
