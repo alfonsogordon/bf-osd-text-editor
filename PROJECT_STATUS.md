@@ -45,3 +45,7 @@ None confirmed yet.
 
 ## v0.3 editor update
 - Commit 73653b223342a93eb3faf0dce1e20411af0b5ea3: 30-character plain-text preview, original byte budget, live extended-storage indicator, JSON metadata, percent directives excluded from new plain text. Dynamic formats remain locked. Export remains disabled. No browser or hardware test confirmed.
+
+## v0.4 experimental export
+- Commit 6230ffc1e824fc1e18159b0a5b4bbce97df73f20 enables exactly one same-length (8 ASCII bytes) DISARMED candidate edit, with explicit bench-test acknowledgement. Preserves original record types and addresses, recomputes changed checksums, reparses output and compares every byte/address. Candidate identity and firmware runtime safety remain unverified. No browser or hardware tests confirmed.
+- JSON includes aligned raw pointer candidates for each string; these are not proven code references. Extended relocation/export remains blocked pending target flash layout and disassembly. Earlier export-disabled statements describe previous versions.
