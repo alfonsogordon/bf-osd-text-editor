@@ -73,3 +73,26 @@ FPSteVe approved preparing the UI and validation while awaiting the first spare-
 Commit 9a2a5bc12db7e02e868c9cf3506b5997466284dc adds slow red pulsing invalid input borders, explanatory red counts, aria-invalid and reduced-motion support. Invalid input is retained rather than silently stripped; export stays gated by existing eight-byte single DISARMED restriction plus explicit validation. Other edited candidates remain preview-only and marked red as export blockers; dynamic fields remain locked. Failed verification shows red status. Browser/deployment and hardware testing not confirmed. No relocation or new export eligibility added.
 
 - v0.4.5: stronger red invalid-field glow and background pulse (0.8s cycle), bold error text; reduced-motion fallback retained. Validation/export logic unchanged. Browser testing pending.
+
+
+## Actionable handoff for SQ — start here after hardware testing
+FPSteVe explicitly wants SQ to be able to kick off the next development steps when SQ reports a successful test, without waiting for FPSteVe to repeat the plan. Read the latest main source and commits first; reconcile any concurrent work. Current baseline is v0.4.5 unless superseded. No hardware pass has been reported at the time of this entry.
+
+### Gate 0 — record the result
+If SQ or FPSteVe reports success, record FC target, Betaflight version/build, original and patched firmware identity if available, displayed replacement, normal boot/configurator connection, arm/disarm behavior (props removed), and any unexpected behavior. Distinguish observed results from untested checks. If the report only confirms the text appeared, that is proof of concept, not a blanket runtime safety pass. If the test fails, stop expansion and investigate/recover using the original firmware.
+
+### Phase 1 — v0.5 TEST: start immediately after reported success
+1. Create a test branch or isolated test page from latest main; preserve the working baseline. Do not overwrite collaborators' changes.
+2. Implement a mandatory visible pre-download verification report with original/output data byte counts, intentional changed bytes, unexpected changes, missing/added addresses, record/checksum validation, and PASS/FAIL. Separate binary integrity from hardware validation. No download on failure; no bypass.
+3. Keep the v0.4.5 conspicuous red pulsing invalid-field feedback, explanatory errors and reduced-motion fallback. Revalidate all fields on every edit; retain invalid input visibly instead of silently filtering it. Keep critical warnings nonblank and meaningful.
+4. Separate stored byte budget, rendered character limit and export eligibility. 30 ASCII characters is an upper display target for ordinary verified paths, not universal patch capacity. Add regression tests for invalid input, duplicate/suffix matches, corrupted HEX, overlaps, unchanged records and unexpected binary differences.
+5. Test shorter DISARMED replacements in place (new NUL, preserve remaining original bytes and verify no references into the affected suffix); verify output independently and bench-test before broadening eligibility.
+
+### Phase 2 — enable other verified in-place messages
+Investigate all known candidates against the exact 4.5.5 source and target binary. Identify actual OSD call sites with Thumb disassembly, not merely raw pointer matches or NUL boundaries. Check shared references, destination buffers, formatting, and warning semantics. Build a per-message eligibility table with evidence and byte/render limits. Unlock only individually verified candidates, initially same-length replacements, then verified shorter replacements and multiple simultaneous edits with non-overlapping patch ranges. Keep dynamic formats locked until their exact argument contracts and worst-case output lengths are established. Bench-test representative messages including warnings without flying; preserve original recovery files.
+
+### Phase 3 — longer text / relocation
+Investigate target-specific linker layout, flash bounds, reserved config regions, and safe storage allocation. Never assume zero bytes or gaps in HEX are free. Prove all affected references and instruction encoding/range constraints before redirecting any reference. Build relocation as an isolated experimental feature with an explicit allowlist of expected changed addresses and independent post-patch disassembly/byte verification. Test one longer DISARMED replacement first, then expand to other verified paths. Aim for up to 30 rendered ASCII characters where supported, including dynamic values; enforce lower limits where required. Preserve format directives and argument order/types, and protect warning meaning.
+
+### Phase 4 — compatibility and release
+Build version/target-specific rules, reject unsupported builds for export, test across additional FCs and Betaflight versions, and promote only tested changes to main. Update version, changelog and this shared MD after each milestone with commits, evidence, test results and outstanding blockers. Report failures honestly; do not claim hardware validation from checksum success. SQ can proceed with implementation and research after the success report, but each new export capability remains gated by its own verification and bench testing.
