@@ -51,3 +51,6 @@ None confirmed yet.
 - JSON includes aligned raw pointer candidates for each string; these are not proven code references. Extended relocation/export remains blocked pending target flash layout and disassembly. Earlier export-disabled statements describe previous versions.
 
 - v0.4.1 aligned columns and clarified export eligibility. v0.4.2 hides format placeholders in labels and displays illustrative dynamic values; raw strings preserved in analysis and firmware. Browser testing pending.
+
+## First exported HEX comparison
+Both uploaded original and experimental files independently parsed: 397979 bytes, 24886 records each, identical addresses, all checksums valid, one changed record and seven changed bytes. Export at 0x0805B760 changed NOT_DISARMED to NOT_FPSteVe! (suffix false positive); do not flash this export. Standalone DISARMED at 0x08062C86 has preceding and trailing NUL. v0.4.3 requires preceding NUL to conservatively reject suffixes; may miss valid strings. Actual OSD reference and hardware test remain unverified.
