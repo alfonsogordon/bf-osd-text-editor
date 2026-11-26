@@ -36,3 +36,9 @@ None confirmed yet.
 - Initial v0.1 inspector and joint branding.
 - v0.2 unlocked plain-text preview fields, including duplicates.
 - Shared status document: source-level buffer and ESC formatting findings; no firmware or app changes in this investigation.
+
+## Further character-limit research — 4.5.5
+- [osd_elements.c](https://github.com/betaflight/betaflight/blob/4.5.5/src/main/osd/osd_elements.c#L2104): activeElement.buff = elementBuff confirms the 32-byte destination for ordinary foreground elements.
+- [displayport_msp.c](https://github.com/betaflight/betaflight/blob/4.5.5/src/main/io/displayport_msp.c#L109): MSP_OSD_MAX_STRING_LENGTH = 30; writeString clamps strlen to 30 before transmission.
+- [max7456.c](https://github.com/betaflight/betaflight/blob/4.5.5/src/main/drivers/max7456.c#L502): analog writes stop at CHARS_PER_LINE, so visible length depends on starting column. Digital receiver layout also needs verification.
+- 30 ASCII characters is a theoretical MSP transmission ceiling for ordinary direct-rendered messages, not verified binary patch capacity. Keep current export disabled and original-length preview limits until further work; no hardware tests performed.
