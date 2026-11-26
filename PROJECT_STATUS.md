@@ -49,3 +49,5 @@ None confirmed yet.
 ## v0.4 experimental export
 - Commit 6230ffc1e824fc1e18159b0a5b4bbce97df73f20 enables exactly one same-length (8 ASCII bytes) DISARMED candidate edit, with explicit bench-test acknowledgement. Preserves original record types and addresses, recomputes changed checksums, reparses output and compares every byte/address. Candidate identity and firmware runtime safety remain unverified. No browser or hardware tests confirmed.
 - JSON includes aligned raw pointer candidates for each string; these are not proven code references. Extended relocation/export remains blocked pending target flash layout and disassembly. Earlier export-disabled statements describe previous versions.
+
+- v0.4.1 aligned columns and clarified export eligibility. v0.4.2 hides format placeholders in labels and displays illustrative dynamic values; raw strings preserved in analysis and firmware. Browser testing pending.
